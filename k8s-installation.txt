@@ -1,0 +1,46 @@
+Install docker using the command
+
+sudo apt install docker.io
+
+kubernetes cluster setup on ubuntu
+sudo apt-get install -y apt-transport-https curl
+
+curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
+
+sudo apt-add-repository "deb https://apt.kubernetes.io/ kubernetes-xenial main"
+
+sudo swapoff -a
+
+sudo apt install kubeadm -y
+kubeadm version
+
+sudo apt install -y kubelet kubectl kubernetes-cni
+
+sudo kubeadm init --pod-network-cidr=172.168.10.0/24
+
+kubectl get nodes
+
+kubectl get pods --all-namespaces
+
+mkdir -p $HOME/.kube
+sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+sudo chown $(id -u):$(id -g) $HOME/.kube/config
+
+kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
+
+
+deva@deva-N501VW:~$ kubectl get pods --all-namespaces
+NAMESPACE     NAME                                  READY   STATUS    RESTARTS   AGE
+kube-system   coredns-6955765f44-pvkgq              1/1     Running   0          9h
+kube-system   coredns-6955765f44-t879q              1/1     Running   0          9h
+kube-system   etcd-deva-n501vw                      1/1     Running   0          9h
+kube-system   kube-apiserver-deva-n501vw            1/1     Running   0          9h
+kube-system   kube-controller-manager-deva-n501vw   1/1     Running   0          9h
+kube-system   kube-flannel-ds-amd64-kfjws           1/1     Running   0          9h
+kube-system   kube-proxy-8vf87                      1/1     Running   0          9h
+kube-system   kube-scheduler-deva-n501vw            1/1     Running   0          9h
+
+
+
+kubeadm join 192.168.86.40:6443 --token 57srry.72469luxjyr4d03u \
+    --discovery-token-ca-cert-hash sha256:fdecb271a99ec2616a93497da543255032764bc07076eae93754cd9295b204a4
