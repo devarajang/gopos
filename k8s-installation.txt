@@ -46,3 +46,6 @@ kube-system   kube-scheduler-deva-n501vw            1/1     Running   0         
 
 kubeadm join 192.168.86.40:6443 --token x73sjz.m8zns5ndc5ehk3ei \
     --discovery-token-ca-cert-hash sha256:fb4c8fdbfb65964d787c3503011aed2063cc4695883105344adefca7d22972f0 
+    
+sudo kubeadm upgrade plan
+
